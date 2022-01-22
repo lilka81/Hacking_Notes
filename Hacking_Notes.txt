@@ -1,1 +1,417 @@
+Footprinting 
+Scanning and Enumeration - nmap
+System Hacking
+Malware
+Sniffing - Wireshark
+Social Engineering
+Denial of Service
+SQL XSS
+Wifi Hacking - Attacking with CPU and GPU
+Mobile Hacking
+Cryptography
+
+***********
+Google Hacking
+Footprinting - passive and active
+
+inurl:"index.php?id="
+Google Hacking Database
+ * https://www.exploit-db.com/google-hacking-database
+
+Could be useful if you, for example, wanted to find some of the vulnerable sites to te specific attacts,
+like for example 'index.php?id'
+
+
+**************
+Whois Information Gathering  
+
+whois
+  * whois cnn.com
+
+
+******************
+Email Harvesting 
+
+theHarvester
+sudo apt-get install theharvester
+
+https://github-wiki-see.page/m/laramies/theHarvester/wiki/Installation
+
+ * theHarvester -d microsoft.com -l 200 -b google
+
+
+*********************
+Information Gathering with Shodan
+
+https://www.shodan.io/
+
+netstat -nr 
+
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         192.168.0.1     0.0.0.0         UG        0 0          0 wlan0
+192.168.0.0     0.0.0.0         255.255.255.0   U         0 0          0 wlan0
+
+https://www.softwaretestinghelp.com/default-router-username-and-password-list/
+
+
+
+***********************
+DNS Zone Transfer with Dig
+
+dig
+
+Attacs zone transfer - is is basically, it uses the replication for primary and secondary 
+DNS servers in order to be synchronised. Well, basically the secondary server, for eample, ask for 
+data for zone from primary server and primary server answeres with copy of database, which is IP 
+address and name of hosts. Now from configuration of DNS can potentialy allow anyone to request zone transfer.
+With this tool we will try out of zone transfer on the bigger websites, which of course will not work,
+but on the smaller ones it could possibly be misconfiguration in the DNS and the zone transfer is enabled. 
+Zone transfer is happening over TCP on port 53, and not over UDP at the regular port 53 for the DNS. 
+
+ * dig google.com
+
+ * dig axfr facebook.com @A.NS.FACEBOOK.COM
+
+; <<>> DiG 9.16.15-Debian <<>> axfr facebook.com @A.NS.FACEBOOK.COM
+;; global options: +cmd
+facebook.com.           3600    IN      SOA     a.ns.facebook.com. dns.facebook.com. 1403495540 14400 1800 604800 300
+; Transfer failed.
+
+ SYNOPSIS
+       dig [@server] [-b address] [-c class] [-f filename] [-k filename] [-m] [-p port#] [-q name] [-t type] [-v] [-x addr] [-y [hmac:]name:key] [ [-4] | [-6] ] [name] [type] [class] [queryopt...]
+
+
+
+dnsenum 
+ 
+ * dnsenum google.com
+
+https://github.com/fwaeytens/dnsenum
+
+
+*************
+Metasploitable 
+
+https://sourceforge.net/projects/metasploitable/
+
+https://www.reddit.com/r/linuxquestions/comments/c89dcq/issues_trying_to_install_virtualbox_60_on_kali/
+
+Metaspotable on Virtualbox 
+ * Deffault credentials:
+  * login: msfadmin
+  * password: msfadmin
+
+
+**********************
+nmap
+
+https://www.nirsoft.net/countryip/
+
+ * nslookup 58.147.128.0
+** server can't find 0.128.147.58.in-addr.arpa: NXDOMAIN
+
+nslookup
+
+ * nslookup facebook.com   
+Server:         194.168.4.100
+Address:        194.168.4.100#53
+
+Non-authoritative answer:
+Name:   facebook.com
+Address: 157.240.240.35
+Name:   facebook.com
+Address: 2a03:2880:f164:81:face:b00c:0:25de
+
+ * nslookup 157.240.240.35
+35.240.240.157.in-addr.arpa     name = edge-star-mini-shv-01-lcy1.facebook.com.
+
+Authoritative answers can be found from:
+
+curl
+
+ * curl ipinfo.io/157.240.240.35
+{
+  "ip": "157.240.240.35",
+  "hostname": "edge-star-mini-shv-01-lcy1.facebook.com",
+  "city": "Menlo Park",
+  "region": "California",
+  "country": "US",
+  "loc": "37.4538,-122.1822",
+  "org": "AS32934 Facebook, Inc.",
+  "postal": "94025",
+  "timezone": "America/Los_Angeles",
+  "readme": "https://ipinfo.io/missingauth"
+} 
+
+
+https://www.ipfingerprints.com/
+
+Example for scanning;
+
+nmap is not allowed to scan the webside if I do not have permission
+  http://scanme.nmap.org/
+
+ * nmap -v -A scanme.nmap.org 
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-01-21 11:02 GMT
+NSE: Loaded 155 scripts for scanning.
+ 
+ * nmap scanme.nmap.org 
+
+ * nmap scanme.nmap.org >> results_nmap.txt
+
+ * nmap -p 65535 192.168.0.21
+   * ifconfig 
+
+ * nmap -p 1-65535 192.168.0.21
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-01-21 11:13 GMT
+Nmap scan report for 192.168.0.21
+Host is up (0.00011s latency).
+All 65535 scanned ports on 192.168.0.21 are in ignored states.
+Not shown: 65535 closed tcp ports (conn-refused)
+
+Nmap done: 1 IP address (1 host up) scanned in 2.13 seconds
+
+ * nmap -vv 192.168.0.21
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-01-21 11:15 GMT
+Initiating Ping Scan at 11:15
+Scanning 192.168.0.21 [2 ports]
+Completed Ping Scan at 11:15, 0.00s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 11:15
+Completed Parallel DNS resolution of 1 host. at 11:15, 0.01s elapsed
+Initiating Connect Scan at 11:15
+Scanning 192.168.0.21 [1000 ports]
+Completed Connect Scan at 11:15, 0.02s elapsed (1000 total ports)
+Nmap scan report for 192.168.0.21
+Host is up, received conn-refused (0.000095s latency).
+Scanned at 2022-01-21 11:15:16 GMT for 0s
+All 1000 scanned ports on 192.168.0.21 are in ignored states.
+Not shown: 1000 closed tcp ports (conn-refused)
+
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
+
+ * nmap -vv 192.168.0.1-255 -F >> nmap_range.txt
+
+
+Hacking Windows Machine:
+
+ * nmap -O 192.168.0.30
+
+ * sudo nmap -sV -v  192.168.0.30
+
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-01-22 08:35 GMT
+NSE: Loaded 45 scripts for scanning.
+Initiating ARP Ping Scan at 08:35
+Scanning 192.168.0.30 [1 port]
+Completed ARP Ping Scan at 08:35, 0.12s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 08:35
+Completed Parallel DNS resolution of 1 host. at 08:35, 0.03s elapsed
+Initiating SYN Stealth Scan at 08:35
+Scanning 192.168.0.30 [1000 ports]
+SYN Stealth Scan Timing: About 40.00% done; ETC: 08:36 (0:00:47 remaining)
+Completed SYN Stealth Scan at 08:36, 75.78s elapsed (1000 total ports)
+Initiating Service scan at 08:36
+NSE: Script scanning 192.168.0.30.
+Initiating NSE at 08:36
+Completed NSE at 08:36, 0.00s elapsed
+Initiating NSE at 08:36
+Completed NSE at 08:36, 0.00s elapsed
+Nmap scan report for 192.168.0.30
+Host is up (0.074s latency).
+All 1000 scanned ports on 192.168.0.30 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: 10:02:B5:3D:B4:A9 (Intel Corporate)
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 76.45 seconds
+           Raw packets sent: 2001 (88.028KB) | Rcvd: 1 (28B)
+
+
+ * sudo nmap -v -A scanme.nmap.org
+
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-01-22 08:36 GMT
+NSE: Loaded 155 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 08:36
+Completed NSE at 08:36, 0.00s elapsed
+Initiating NSE at 08:36
+Completed NSE at 08:36, 0.00s elapsed
+Initiating NSE at 08:36
+Completed NSE at 08:36, 0.00s elapsed
+Initiating Ping Scan at 08:36
+Scanning scanme.nmap.org (45.33.32.156) [4 ports]
+Completed Ping Scan at 08:36, 0.28s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 08:36
+Completed Parallel DNS resolution of 1 host. at 08:37, 0.06s elapsed
+Initiating SYN Stealth Scan at 08:37
+Scanning scanme.nmap.org (45.33.32.156) [1000 ports]
+Discovered open port 22/tcp on 45.33.32.156
+Discovered open port 80/tcp on 45.33.32.156
+Discovered open port 31337/tcp on 45.33.32.156
+Discovered open port 9929/tcp on 45.33.32.156
+Completed SYN Stealth Scan at 08:37, 12.60s elapsed (1000 total ports)
+Initiating Service scan at 08:37
+Scanning 4 services on scanme.nmap.org (45.33.32.156)
+Completed Service scan at 08:37, 6.54s elapsed (4 services on 1 host)
+Initiating OS detection (try #1) against scanme.nmap.org (45.33.32.156)
+Initiating Traceroute at 08:37
+Completed Traceroute at 08:37, 3.02s elapsed
+Initiating Parallel DNS resolution of 10 hosts. at 08:37
+Completed Parallel DNS resolution of 10 hosts. at 08:37, 0.65s elapsed
+NSE: Script scanning 45.33.32.156.
+Initiating NSE at 08:37
+Completed NSE at 08:37, 9.44s elapsed
+Initiating NSE at 08:37
+Completed NSE at 08:37, 1.24s elapsed
+Initiating NSE at 08:37
+Completed NSE at 08:37, 0.00s elapsed
+Nmap scan report for scanme.nmap.org (45.33.32.156)
+Host is up (0.23s latency).
+Other addresses for scanme.nmap.org (not scanned): 2600:3c01::f03c:91ff:fe18:bb2f
+Not shown: 996 closed tcp ports (reset)
+PORT      STATE SERVICE    VERSION
+22/tcp    open  ssh        OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.13 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   1024 ac:00:a0:1a:82:ff:cc:55:99:dc:67:2b:34:97:6b:75 (DSA)
+|   2048 20:3d:2d:44:62:2a:b0:5a:9d:b5:b3:05:14:c2:a6:b2 (RSA)
+|   256 96:02:bb:5e:57:54:1c:4e:45:2f:56:4c:4a:24:b2:57 (ECDSA)
+|_  256 33:fa:91:0f:e0:e1:7b:1f:6d:05:a2:b0:f1:54:41:56 (ED25519)
+80/tcp    open  http       Apache httpd 2.4.7 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Go ahead and ScanMe!
+|_http-favicon: Nmap Project
+|_http-server-header: Apache/2.4.7 (Ubuntu)
+9929/tcp  open  nping-echo Nping echo
+31337/tcp open  tcpwrapped
+Device type: general purpose
+Running: Linux 5.X
+OS CPE: cpe:/o:linux:linux_kernel:5
+OS details: Linux 5.0 - 5.4
+Uptime guess: 42.115 days (since Sat Dec 11 05:51:45 2021)
+Network Distance: 12 hops
+TCP Sequence Prediction: Difficulty=259 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT       ADDRESS
+1   258.61 ms 192.168.0.1
+2   22.92 ms  10.53.38.125
+3   28.96 ms  brnt-core-2a-xe-221-0.network.virginmedia.net (62.252.72.225)
+4   ...
+5   28.97 ms  m686-mp2.cvx1-b.lis.dial.ntli.net (62.254.42.174)
+6   28.95 ms  213.46.174.118
+7   51.85 ms  ldn-bb1-link.ip.twelve99.net (62.115.122.188)
+8   141.95 ms nyk-bb1-link.ip.twelve99.net (62.115.112.244)
+9   167.38 ms sjo-b23-link.ip.twelve99.net (62.115.119.229)
+10  166.79 ms linode-ic342731-sjo-b21.ip.twelve99-cust.net (62.115.172.133)
+11  335.79 ms if-2-6.csw5-fnc1.linode.com (173.230.159.71)
+12  336.83 ms scanme.nmap.org (45.33.32.156)
+
+NSE: Script Post-scanning.
+Initiating NSE at 08:37
+Completed NSE at 08:37, 0.00s elapsed
+Initiating NSE at 08:37
+Completed NSE at 08:37, 0.00s elapsed
+Initiating NSE at 08:37
+Completed NSE at 08:37, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 38.51 seconds
+           Raw packets sent: 1317 (58.746KB) | Rcvd: 1088 (45.125KB)
+
+************************************
+Zenmap - graphical nmap:
+
+https://learnkali.org/how-to-install-zenmap-in-kali-linux-2021-1/
+***********************************
+TCP Scans
+
+ * nmap -Pn 192.168.0.30
+   * skips host discovery and scans the host
+   * does not check if host is running
+
+ * nmap -Tn 192.168.0.30
+   * performs way handshake in order to scan the target
+   * full tcp three way handshake scan 
+   * computer A(target to scan) and B (my host) 
+     * SYN, SYN-ACK, ACK (just ACK)
+
+ * nmap -sT 192.168.0.30
+   * full tcp three way handshake
+   * host detects you
+
+ * nmap -sS 192.168.0.30
+   * TCP SYN scanning 
+   * It is not detectable on the target host so this is you can use
+   * Target from detecting your acan because it will not really complete 
+   * The handshake, but it is less accurate and it can also be detected by your IPS
+ 
+ * nmap -sU 192.168.0.30
+   * UDP scan 
+   
+
+ When target is blocking nmap and you can not get any information:
+
+ * nmap -sA 192.168.0.30
+   * stands for ACK
+
+ * Bypase rules of your router if there is a rule that allows SYN packet only from the inter network.
+ * I am coming from internet and try to send SYN packet to the machine being outside my local network,
+ * I will be block. And if the rule really exists on the target machine, I can send ACK, which is the last part of
+ * Three way of TCP handshake, which will trick the router or the website to think that it is an answer to a previous SYN bit
+
+ * nmap --source-port 80 192.168.0.30
+ * nmap -g 80 192.168.0.30 
+  * blockages of specific ports 
+
+ * nmap --date-lenth 50 192.168.0.30
+  * blockages nmap standard packet sizes
+
+ * nmap --spoof-mac 192.168.0.30 
+  * macchanger --show eth0
+ 
+Current MAC:   f8:ca:b8:0a:06:31 (unknown)
+Permanent MAC: f8:ca:b8:0a:06:31 (unknown)
+
+
+***************************
+nmap scripts
+
+ * cd /usr/share/nmap/scripts
+ 
+ * ls | grep ssh
+ssh2-enum-algos.nse
+ssh-auth-methods.nse
+ssh-brute.nse
+ssh-hostkey.nse
+ssh-publickey-acceptance.nse
+ssh-run.nse
+sshv1.nse
+                                                                                                                                                                                                                                             
+ * nmap --script=ssh-brute.nse 192.168.0.35
+   * (metasploitable machine is hacking - it has open ssh)
+
+ * things can be changed in the script; for example port etc...
+
+Scanning for vulnerabilities:
+Downloading scripts:
+ * git clone git@github.com:scipag/vulscan.git
+ * git clone git@github.com:vulnersCom/nmap-vulners.git
+
+ * nmap --script=/home/lilianna/Hacking_Course/nmapscripts/vulscan/vulscan.nse -sV 192.168.0.35
+
+
+
+**********************************
+amap
+
+Similar to  nmap
+
+
+
+
 
